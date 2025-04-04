@@ -1,11 +1,11 @@
 def recorrer_stats(stats,jugadores):
     """Recorro las stats de la ronda y las sumo a los jugadores"""
-    for jugador, stat in stats.items(): 
     # pongo items asi veo las claves y valores y los puedo recorrer
+    for jugador, stat in stats.items(): 
         jugadores[jugador] = aumentar_stats(jugadores[jugador],stat)
-    #guardo los mvps
         
     informar_stats_de_jugadores(jugadores)
+    #guardo los mvps de cada ronda
     jugadores = calcular_MVP_e_informar(stats,jugadores)
     return jugadores
 
@@ -25,7 +25,7 @@ def informar_stats_de_jugadores(jugadores):
     """Imprimo la parte de stats de los jugadores de la tabla ordenados por puntaje"""
     jugadores = dict(sorted(jugadores.items(), key=lambda jugador: jugador[1]['puntos'], reverse=True))
     for jugador,stat in jugadores.items():
-        print(f"{jugador:<12}{stat['kills']:<6}{stat['assists']:>10} {stat['deaths']:>7} {stat['puntos']:>7}")
+        informar_stat(jugador,stat,"")
     print("-"*50)
 
 def imprimir_tabla(round):
@@ -49,12 +49,19 @@ def calcular_MVP_e_informar(stats,jugadores):
     print(f"EL MVP de la ronda fue: {mvp}")
     print("-"*50)
     return jugadores
-
+def informar_stat(jugador, stat, round):
+    """Imprimo stats del jugador"""
+    if(round=="Final"):
+        end=""
+    else:
+        end="\n"
+    print(f"{jugador:<12}{stat['kills']:<6}{stat['assists']:>10} {stat['deaths']:>7} {stat['puntos']:>7}",end=end)
 def informar_ranking_final(jugadores):
     """Informo todo del ranking final"""
     imprimir_tabla("Final")
     for jugador, stat in jugadores.items():
-        print(f"{jugador:<12}{stat['kills']:<6}{stat['assists']:>10} {stat['deaths']:>7} {stat['puntos']:>7}{stat['MVPs']:>6}")
+        informar_stat(jugador, stat,"Final")
+        print(f"{stat['MVPs']:>6}")
     print("-"*50)
 
 def calcular_puntos(jugador):
