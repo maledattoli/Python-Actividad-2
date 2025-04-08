@@ -11,3 +11,6 @@
     pip install -r requirements.txt
 ## 4. Ejecutar desde jupyter notebook ingresando el siguiente codigo en la terminal
     ```jupyter notebook
+
+Carrasco Dattoli Malena 
+nro de legajo: 24568/9
